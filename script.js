@@ -12,3 +12,5 @@ document.querySelector('.products').addEventListener('click' , (event) => {
         localStorage.setItem('countProducts', count)
     }
 })
+
+console.log('github loh')
