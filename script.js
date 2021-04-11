@@ -52,6 +52,22 @@ const productsInBasket = []
 
 const productsWrapper = document.querySelector('.products-wrapper')
 
+const modal_basket = document.querySelector('.modal-basket')
+const btn_open_modal = document.querySelector('.modal-open')
+const btn_close_modal = document.querySelector('.btn-close-modal')
+console.log(btn_open_modal)
+
+btn_open_modal.addEventListener('click', (event) => {
+    if (event.target.innerText === "Корзина") {
+        console.log(event)
+        openModal()
+    }
+})
+
+function openModal() {
+    modal_basket.style.display = "block"
+}
+
 const createProducts = () => {
     products.forEach((product, idx) => {
         const cardProduct = document.createElement('div')
