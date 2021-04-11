@@ -72,3 +72,12 @@ body {
     margin-bottom: 10px;
     padding-left: 15px;
 }
+
+.modal-basket {
+    display: none;
+    position: fixed;
+    overflow: auto;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+}
