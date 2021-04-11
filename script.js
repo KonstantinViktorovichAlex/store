@@ -54,19 +54,36 @@ const productsWrapper = document.querySelector('.products-wrapper')
 
 const modal_basket = document.querySelector('.modal-basket')
 const btn_open_modal = document.querySelector('.modal-open')
-const btn_close_modal = document.querySelector('.btn-close-modal')
-console.log(btn_open_modal)
+const btn_close_modal = document.querySelector('.btn-close')
+const buy_products = document.querySelector('.buy-products')
+const user_products = document.querySelector('.user-products')
 
 btn_open_modal.addEventListener('click', (event) => {
     if (event.target.innerText === "Корзина") {
-        console.log(event)
         openModal()
     }
-})
+}) // Открываем модалку.
+
+btn_close_modal.addEventListener('click', (event) => {
+        closeModal()
+}) // Закрываем модалку.
+
+buy_products.addEventListener('click', (event) => {
+    buyProducts()
+}) // Покупаем товар.
 
 function openModal() {
     modal_basket.style.display = "block"
-}
+} // Функция призыва модалки.
+
+function closeModal() {
+    modal_basket.style.display = "none"
+} // Функция отзыва модалки.
+
+function buyProducts() {
+    modal_basket.style.display = "none"
+    alert('Теперь ваши деньги у нас!')
+} // Покупаем товар.
 
 const createProducts = () => {
     products.forEach((product, idx) => {
@@ -110,7 +127,7 @@ const showBasketProducts = () => {
                 ${product.name}
             </h3>
             <p>
-            ${product.description}
+                ${product.description}
             </p>
             `
             testBasket.append(productInTestBasket)
@@ -119,3 +136,4 @@ const showBasketProducts = () => {
 }
 createProducts()
 addBasket()
+

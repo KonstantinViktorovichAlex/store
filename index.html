@@ -15,6 +15,26 @@
 <body>
 <div id="root">
     <div class="container">
+        <div class="modal-basket" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Корзина</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ваш выбор: </p>
+                        <div class="user-products">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">:)</button>
+                        <button type="button" class="btn btn-primary buy-products">Купить!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <nav class="navbar navbar-dark bg-dark">
                 <div class="col">
@@ -33,23 +53,7 @@
                 </div>
             </nav>
         </div>
-        <div class="modal-basket" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Корзина</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Modal body text goes here.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="row mt-3 products-wrapper">
 
         </div>
