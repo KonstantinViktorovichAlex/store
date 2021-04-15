@@ -157,7 +157,6 @@ const deleteProduct = () => {
                 // productsInBasket.splice(findElem, 1)
                 item.remove()
                 basketCount.innerHTML = `${productsInBasket.length}`
-
             }
         })
     })
@@ -165,3 +164,5 @@ const deleteProduct = () => {
 
 createProducts()
 addBasket()
+
+
