@@ -59,6 +59,17 @@ const btn_close_modal = document.querySelector('.btn-close')
 const buy_products = document.querySelector('.buy-products')
 const user_products = document.querySelector('.user-products')
 
+const init = () => {
+    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+    if(storageProductInBasket !== null && storageProductInBasket.length > 0) {
+        basketCount.innerHTML = storageProductInBasket.length
+        storageProductInBasket.forEach((item) => {
+            productsInBasket.push(item)
+        })
+    }
+}
+
+
 btn_open_modal.addEventListener('click', (event) => {
     if (event.target.innerText === "Корзина") {
         openModal()
@@ -114,16 +125,24 @@ const addBasket = () => {
         item.addEventListener('click', (event) => {
             if (event.target.innerText === 'В корзину!') {
                 const id = Number(this.event.path[2].getAttribute('id'))
+
                 const productToBasket = products.find(product => product.id === id)
+
                 productsInBasket.push(productToBasket)
-                basketCount.innerHTML = `${productsInBasket.length}`
+
+                localStorage.setItem('productsInBasket', JSON.stringify(productsInBasket))
+
+                let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+
+                basketCount.innerHTML = `${storageProductInBasket.length}`
             }
         })
     })
 }
 const showBasketProducts = () => {
-    if (productsInBasket.length) {
-        productsInBasket.forEach((product, idx) => {
+    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+    if (storageProductInBasket.length) {
+        storageProductInBasket.forEach((product, idx) => {
             const cardProductBasket = document.createElement('div')
             cardProductBasket.setAttribute('id', idx)
             cardProductBasket.classList.add('cardProductBasket')
@@ -144,24 +163,27 @@ const showBasketProducts = () => {
     }
 }
 const deleteProduct = () => {
+    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
     const cardProductBasket = document.querySelectorAll('.cardProductBasket')
-    let idProduct = 0
     cardProductBasket.forEach((item) => {
         item.addEventListener('click', (event) => {
             if(event.target.innerText === 'Удалить') {
-                idProduct = Number(item.getAttribute('id'))
-                productsInBasket.splice(idProduct, 1)
-                // const findElem = productsInBasket.find((item) => {
-                //     return item.id === idProduct
-                // })
-                // productsInBasket.splice(findElem, 1)
+
+                let idProduct = Number(item.getAttribute('id'))
+                let findElem = productsInBasket.find((item) => item.id === idProduct)
+                let findElemLocal = storageProductInBasket.find((item) => item.id === idProduct)
+
+                productsInBasket.splice(findElem, 1)
+                storageProductInBasket.splice(findElemLocal, 1)
+
+                localStorage.setItem('productsInBasket', JSON.stringify(storageProductInBasket))
                 item.remove()
-                basketCount.innerHTML = `${productsInBasket.length}`
+                basketCount.innerHTML = `${storageProductInBasket.length}`
             }
         })
     })
 }
-
+init()
 createProducts()
 addBasket()
 
