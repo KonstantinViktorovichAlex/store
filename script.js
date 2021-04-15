@@ -59,8 +59,6 @@ const btn_close_modal = document.querySelector('.btn-close')
 const buy_products = document.querySelector('.buy-products')
 const user_products = document.querySelector('.user-products')
 
-console.log(basketCount)
-
 btn_open_modal.addEventListener('click', (event) => {
     if (event.target.innerText === "Корзина") {
         openModal()
@@ -145,7 +143,6 @@ const showBasketProducts = () => {
         deleteProduct()
     }
 }
-console.log(productsInBasket)
 const deleteProduct = () => {
     const cardProductBasket = document.querySelectorAll('.cardProductBasket')
     let idProduct = 0
@@ -159,9 +156,6 @@ const deleteProduct = () => {
                 // })
                 // productsInBasket.splice(findElem, 1)
                 item.remove()
-                if (idProduct === 0) {
-                    console.log('fdf')
-                }
                 basketCount.innerHTML = `${productsInBasket.length}`
 
             }
