@@ -52,6 +52,54 @@ const productsInBasket = []
 
 const productsWrapper = document.querySelector('.products-wrapper')
 
+const basketCount = document.querySelector('.basket-count')
+const modal_basket = document.querySelector('.modal-basket')
+const btn_open_modal = document.querySelector('.modal-open')
+const btn_close_modal = document.querySelector('.btn-close')
+const buy_products = document.querySelector('.buy-products')
+const user_products = document.querySelector('.user-products')
+
+const init = () => {
+    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+    if(storageProductInBasket !== null && storageProductInBasket.length > 0) {
+        basketCount.innerHTML = storageProductInBasket.length
+        storageProductInBasket.forEach((item) => {
+            productsInBasket.push(item)
+        })
+    }
+}
+
+
+btn_open_modal.addEventListener('click', (event) => {
+    if (event.target.innerText === "Корзина") {
+        openModal()
+        showBasketProducts()
+    }
+}) // Открываем модалку.
+
+btn_close_modal.addEventListener('click', (event) => {
+    closeModal()
+    user_products.innerHTML = ''
+}) // Закрываем модалку.
+
+buy_products.addEventListener('click', (event) => {
+    buyProducts()
+}) // Покупаем товар.
+
+function openModal() {
+    modal_basket.style.display = "block"
+} // Функция призыва модалки.
+
+function closeModal() {
+    modal_basket.style.display = "none"
+
+} // Функция отзыва модалки.
+
+function buyProducts() {
+    modal_basket.style.display = "none"
+    alert('Теперь ваши деньги у нас!')
+} // Покупаем товар.
+
 const createProducts = () => {
     products.forEach((product, idx) => {
         const cardProduct = document.createElement('div')
@@ -77,29 +125,66 @@ const addBasket = () => {
         item.addEventListener('click', (event) => {
             if (event.target.innerText === 'В корзину!') {
                 const id = Number(this.event.path[2].getAttribute('id'))
+
                 const productToBasket = products.find(product => product.id === id)
+
                 productsInBasket.push(productToBasket)
-                showBasketProducts()
+
+                localStorage.setItem('productsInBasket', JSON.stringify(productsInBasket))
+
+                let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+
+                basketCount.innerHTML = `${storageProductInBasket.length}`
             }
         })
     })
 }
 const showBasketProducts = () => {
-    const testBasket = document.querySelector('.test-basket')
-    if (productsInBasket.length) {
-        productsInBasket.forEach((product, ind) => {
-            const productInTestBasket = document.createElement('div')
-            productInTestBasket.innerHTML = `
-            <h3>
-                ${product.name}
-            </h3>
-            <p>
-            ${product.description}
-            </p>
+    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+    if (storageProductInBasket.length) {
+        storageProductInBasket.forEach((product, idx) => {
+            const cardProductBasket = document.createElement('div')
+            cardProductBasket.setAttribute('id', idx)
+            cardProductBasket.classList.add('cardProductBasket')
+            cardProductBasket.innerHTML = `
+                <h5>
+                    ${product.name}
+                </h5>
+                <img src="${product.image}" class="basket-image" alt="">
+                <p>
+                    ${product.description}
+                </p>
+                <button class="btn btn-sm btn-danger deleteProduct">Удалить</button>
+                <hr>
             `
-            testBasket.append(productInTestBasket)
+            user_products.append(cardProductBasket)
         })
+        deleteProduct()
     }
 }
+const deleteProduct = () => {
+    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
+    const cardProductBasket = document.querySelectorAll('.cardProductBasket')
+    cardProductBasket.forEach((item) => {
+        item.addEventListener('click', (event) => {
+            if(event.target.innerText === 'Удалить') {
+
+                let idProduct = Number(item.getAttribute('id'))
+                let findElem = productsInBasket.find((item) => item.id === idProduct)
+                let findElemLocal = storageProductInBasket.find((item) => item.id === idProduct)
+
+                productsInBasket.splice(findElem, 1)
+                storageProductInBasket.splice(findElemLocal, 1)
+
+                localStorage.setItem('productsInBasket', JSON.stringify(storageProductInBasket))
+                item.remove()
+                basketCount.innerHTML = `${storageProductInBasket.length}`
+            }
+        })
+    })
+}
+init()
 createProducts()
 addBasket()
+
+
