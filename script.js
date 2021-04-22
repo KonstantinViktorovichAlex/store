@@ -1,5 +1,3 @@
-console.log('gaga')
-
 const products = [
     {
         id: 0,
@@ -59,7 +57,6 @@ const products = [
     },
 ]
 const productsInBasket = []
-const general_price = []
 
 const productsWrapper = document.querySelector('.products-wrapper')
 
@@ -67,7 +64,6 @@ const basketCount = document.querySelector('.basket-count')
 const modal_basket = document.querySelector('.modal-basket')
 const btn_open_modal = document.querySelector('.modal-open')
 const btn_close_modal = document.querySelector('.btn-close')
-const buy_products = document.querySelector('.buy-products')
 const user_products = document.querySelector('.user-products')
 const total_price = document.querySelector('.modal-price')
 
@@ -101,18 +97,20 @@ function closeModal() {
     modal_basket.style.display = "none"
 
 } // Функция отзыва модалки.
-
+// <img src="${product.image}" class="custom-image" alt="...">
 const createProducts = () => {
     products.forEach((product, idx) => {
         const cardProduct = document.createElement('div')
-        cardProduct.classList.add('col')
+        //cardProduct.classList.add('col')
         cardProduct.innerHTML = `
-                <div class="card card-wrapper" id="${idx}" style="width: 18rem;">
-                    <img src="${product.image}" class="card-img-top custom-image" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title text-danger">${product.name}</h5>
-                        <p class="card-text"><strong>${product.description}</strong></p>
-                        <p class="card-text"><strong>Стоимость: ${product.price}</strong></p>
+                <div class="card-wrapper" id="${idx}">
+                    <div class="card-wrapper__image">
+                        <img src="${product.image}" class="custom-image" alt="...">
+                    </div>
+                    <div class="card-wrapper__body">
+                        <h5 class="card-body__title">${product.name}</h5>
+                        <p class="card-body__description"><strong>${product.description}</strong></p>
+                        <p class="card-body__price"><strong>Стоимость: ${product.price}</strong></p>
                     </div>
                     <div class="button-wrapper">
                         <button type="button" class="btn btn-outline-primary ml-2">В корзину!</button>
@@ -143,7 +141,6 @@ const addBasket = () => {
 
                 basketCount.innerHTML = `${storageProductInBasket.length}`
 
-                console.log(productsInBasket)
             }
         })
     })
@@ -154,7 +151,6 @@ const sum_price = () => {
     productsInBasket.forEach((product) => {
         total_cost += product.price
     })
-    console.log(total_cost)
     total_price.innerHTML = total_cost
 }
 
@@ -162,8 +158,6 @@ const showBasketProducts = () => {
     let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
     if (storageProductInBasket.length) {
         storageProductInBasket.forEach((product, idx) => {
-                // const general_price_into_basket = general_price.map(i =>x +=i, x ).reverse()
-                // console.log(general_price_into_basket)
 
             const cardProductBasket = document.createElement('div')
             cardProductBasket.setAttribute('id', idx)

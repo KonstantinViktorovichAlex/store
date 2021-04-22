@@ -1,6 +1,44 @@
 body {
-    font-family: 'Roboto Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
 }
+
+.header{
+    padding-top: 25px;
+    height: 25vh;
+    background: #141E30;
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    background: linear-gradient(to right, #243B55, #141E30);
+    color: #eaeaea;
+}
+.footer {
+    background: #141E30;
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    background: linear-gradient(to right, #243B55, #141E30);
+    color: #eaeaea;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Karantina', cursive;
+}
+
+.header-title__text {
+    font-size: 60px;
+}
+
+.header-description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header-description__text {
+    font-weight: 300;
+    font-size: 20px;
+}
+
 .basket-wrapper {
     color: #ffffff;
     display: flex;
@@ -15,6 +53,22 @@ body {
 .basket-wrapper:hover {
     color: rgba(103, 125, 199, 0.78);
 }
+
+.content-container {
+    max-width: 1300px;
+    margin: -39px auto;
+    background-color: white;
+    padding-top: 15px;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.products-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
 .card-products-1 {
     margin-top: 20px;
     align-items: flex-start;
@@ -63,14 +117,30 @@ body {
 .card-wrapper {
     height: 400px;
     margin-bottom: 15px;
+    width: 260px;
+    border: 1px solid rgba(119, 118, 118, 0.5);
+    border-radius: 5px;
 }
 .custom-image {
-    width: 100%;
-    height: 210px;
+    width: 60%;
+    height: 150px;
+    border-radius: 50%;
+}
+.card-wrapper__image {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.card-wrapper__body {
+    padding-left: 10px;
+}
+.card-body__title {
+    font-size: 35px;
 }
 .button-wrapper {
-    margin-bottom: 10px;
     padding-left: 15px;
+    margin-top: 30px;
 }
 
 .modal-basket {
