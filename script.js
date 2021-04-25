@@ -7,90 +7,57 @@ const products = [
         id: 0,
         name: 'Ньюбики',
         price: 2500,
-
         description: 'Чёткие кроссы, долго служат, дизайн чёткий',
-
-        description: 'Чёткие кроссы, долго служат, дизайн чёткий.',
-
-        image: './img/card-1.jpg'
+        image: './img/card-1.jpg',
     },
     {
         id: 1,
         name: 'Асиксы',
-
+        price: 3500,
         description: 'Чёткие кроссы, учитель физкультуры одобряет',
-
-        description: 'Чёткие кроссы, учитель физкультуры одобряет.',
-
-        image: './img/card-2.jpg'
+        image: './img/card-2.jpg',
     },
     {
         id: 2,
         name: 'Кактус джек',
         price: 7500,
-
         description: 'Изобретение тревис скотта, кроссы чёткие',
-        image: './img/card-3.jpg'
-
-        description: 'Изобретение тревис скотта. Кроссы чёткие.',
-        image: './img/card-3.png'
-
+        image: './img/card-3.jpg',
     },
     {
         id: 3,
         name: 'Найки',
         price: 1500,
-
         description: 'Кислотный цвет, дизайн не очень, но для бега топчик',
-
-        description: 'Кислотный цвет. Дизайн не очень, но для бега топчик.',
-
-        image: './img/card-4.jpg'
+        image: './img/card-4.jpg',
     },
     {
         id: 4,
         name: 'Фила',
         price: 2500,
-
         description: 'Старый бренд, уже не в моде',
-        image: './img/card-5.jpg'
-
-        description: 'Старый бренд, уже не в моде.',
-        image: './img/card-5.png'
-
+        image: './img/card-5.jpg',
     },
     {
         id: 5,
         name: 'Адидас',
         price: 2400,
-
         description: 'Чёткие кроссы, дизайн не очень, но чёткие',
-
-        description: 'Чёткие кроссы, дизайн не очень, но чёткие.',
-
-        image: './img/card-6.jpg'
+        image: './img/card-6.jpg',
     },
     {
         id: 6,
         name: 'Асиксы',
         price: 2100,
-
-        description: 'Отличный вариант для бега и спорта',
-
         description: 'Отличный вариант для бега и спорта.',
-
         image: './img/card-7.jpg'
     },
     {
         id: 7,
         name: 'Асиксы',
         price: 9999,
-
-        description: 'Кислотный цвет, дизайн топчик, для бега топчик',
-
         description: 'Кислотный цвет. Дизайн топчик, для бега топчик.',
-
-        image: './img/card-8.jpg'
+        image: './img/card-8.jpg',
     },
 ]
 const productsInBasket = []
@@ -145,11 +112,7 @@ const createProducts = () => {
                         <img src="${product.image}" class="custom-image" alt="...">
                     </div>
                     <div class="card-wrapper__body">
-
                         <h5 class="card-body__title"><strong>${product.name}</strong></h5>
-
-                        <h5 class="card-body__title">${product.name}</h5>
-
                         <p class="card-body__description"><strong>${product.description}</strong></p>
                         <p class="card-body__price"><strong>Стоимость: ${product.price}</strong></p>
                     </div>
