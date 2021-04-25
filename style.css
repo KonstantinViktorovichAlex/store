@@ -2,6 +2,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+
 .body_hide {
     opacity: 0;
     transition: .9s opacity ease-in-out;
@@ -14,6 +15,7 @@ body {
     background-color: #f1f1f1;
 }
 
+
 .header{
     padding-top: 25px;
     height: 25vh;
@@ -23,10 +25,16 @@ body {
     color: #eaeaea;
 }
 .footer {
+
     height: 50px;
     background: #141E30;
     background: -webkit-linear-gradient(to left, #243B55, #141E30);
     background: linear-gradient(to left, #243B55, #141E30);
+
+    background: #141E30;
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    background: linear-gradient(to right, #243B55, #141E30);
+
     color: #eaeaea;
 }
 
@@ -34,6 +42,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-family: 'Antonio', sans-serif;
 }
 
@@ -49,10 +58,18 @@ body {
     color: #dbf075;
 }
 
+    font-family: 'Karantina', cursive;
+}
+
+.header-title__text {
+    font-size: 60px;
+}
+
 .header-description {
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding-top: 3px;
 }
 
@@ -75,6 +92,13 @@ body {
 
 .header-description__text:hover {
     color: #dbf075;
+
+}
+
+header-description__text {
+    font-weight: 300;
+    font-size: 20px;
+
 }
 
 .basket-wrapper {
@@ -113,6 +137,24 @@ body {
     flex-wrap: wrap;
     font-family: 'Raleway', sans-serif;
 }
+
+
+
+.content-container {
+    max-width: 1300px;
+    margin: -39px auto;
+    background-color: white;
+    padding-top: 15px;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.products-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
 
 .card-products-1 {
     margin-top: 20px;
@@ -165,6 +207,7 @@ body {
     width: 260px;
     border: 1px solid rgba(119, 118, 118, 0.5);
     border-radius: 5px;
+
     cursor: pointer;
     transition: 0.5s linear;
 }
@@ -182,6 +225,7 @@ body {
 
 .card-wrapper:hover .card-wrapper__body {
     padding-top: 30px;
+
 }
 
 .custom-image {
@@ -194,6 +238,14 @@ body {
     justify-content: center;
     margin-top: 15px;
     margin-bottom: 15px;
+
+}
+.card-wrapper__body {
+    padding-left: 10px;
+}
+.card-body__title {
+    font-size: 35px;
+
 }
 
 .card-wrapper__body {
@@ -215,11 +267,16 @@ body {
 }
 
 .button-wrapper {
+
     margin-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.5s linear;
+
+    padding-left: 15px;
+    margin-top: 30px;
+
 }
 
 .modal-basket {
@@ -237,6 +294,7 @@ body {
 .card-img-top {
     width: 150px;
     height: 200px;
+
 }
 
 .bottom-info {
@@ -251,3 +309,6 @@ body {
     letter-spacing: 0.1em;
     cursor: pointer;
 }
+
+}
+
