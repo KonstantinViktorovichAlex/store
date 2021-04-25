@@ -1,6 +1,6 @@
 setTimeout(function(){
     document.body.classList.add('body_visible');
-}, 300);
+}, 50);
 
 const products = [
     {
@@ -65,10 +65,10 @@ const productsInBasket = []
 const productsWrapper = document.querySelector('.products-wrapper')
 
 const basketCount = document.querySelector('.basket-count')
-const modal_basket = document.querySelector('.modal-basket')
+const modal_basket = document.querySelector('.modal-basket-not-bootstrap')
 const btn_open_modal = document.querySelector('.modal-open')
-const btn_close_modal = document.querySelector('.btn-close')
-const user_products = document.querySelector('.user-products')
+const btn_close_modal = document.querySelector('.btn-close__not-bootstrap')
+const user_products = document.querySelector('.user-products__not-bootstrap')
 const total_price = document.querySelector('.modal-price')
 
 const init = () => {
@@ -94,18 +94,16 @@ btn_close_modal.addEventListener('click', (event) => {
 }) // Закрываем модалку.
 
 function openModal() {
-    modal_basket.style.display = "block"
+    modal_basket.style.display = "flex"
 } // Функция призыва модалки.
 
 function closeModal() {
     modal_basket.style.display = "none"
 
 } // Функция отзыва модалки.
-// <img src="${product.image}" class="custom-image" alt="...">
 const createProducts = () => {
     products.forEach((product, idx) => {
         const cardProduct = document.createElement('div')
-        //cardProduct.classList.add('col')
         cardProduct.innerHTML = `
                 <div class="card-wrapper" id="${idx}">
                     <div class="card-wrapper__image">
@@ -210,6 +208,16 @@ const deleteProduct = () => {
         })
     })
 }
+const closeBasketWrapper = () => {
+    const wrapperModalBasket = document.querySelector('.modal-basket-not-bootstrap')
+    wrapperModalBasket.addEventListener('click', (event) => {
+        if(event.target.className === 'modal-basket-not-bootstrap') {
+            closeModal()
+        }
+    })
+}
+
 init()
 createProducts()
 addBasket()
+closeBasketWrapper()
