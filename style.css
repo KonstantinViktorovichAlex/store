@@ -2,6 +2,20 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+
+.body_hide {
+    opacity: 0;
+    transition: .9s opacity ease-in-out;
+}
+.body_visible {
+    opacity: 1;
+}
+
+#root {
+    background-color: #f1f1f1;
+}
+
+
 .header{
     padding-top: 25px;
     height: 25vh;
@@ -11,9 +25,16 @@ body {
     color: #eaeaea;
 }
 .footer {
+
+    height: 50px;
+    background: #141E30;
+    background: -webkit-linear-gradient(to left, #243B55, #141E30);
+    background: linear-gradient(to left, #243B55, #141E30);
+
     background: #141E30;
     background: -webkit-linear-gradient(to right, #243B55, #141E30);
     background: linear-gradient(to right, #243B55, #141E30);
+
     color: #eaeaea;
 }
 
@@ -21,6 +42,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-family: 'Antonio', sans-serif;
+}
+
+.header-title__text {
+    color: #ceeced;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: 0.4s linear;
+    font-size: 60px;
+}
+
+.header-title__text:hover {
+    color: #dbf075;
+}
+
     font-family: 'Karantina', cursive;
 }
 
@@ -32,27 +69,76 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    padding-top: 3px;
+}
+
+.header__basket {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 7px;
+    letter-spacing: 0.1em;
+}
+
+.header-description__text {
+    color: #ceeced;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    font-weight: 300;
+    font-size: 20px;
+    transition: 0.4s linear;
+}
+
+.header-description__text:hover {
+    color: #dbf075;
+
 }
 
 header-description__text {
     font-weight: 300;
     font-size: 20px;
+
 }
 
 .basket-wrapper {
-    color: #ffffff;
+    color: #ceeced;
     display: flex;
     align-items: center;
     float: right;
     font-size: 18px;
+    transition: 0.2s linear;
 }
 .basket-title {
     margin-left: 10px;
     cursor: pointer;
 }
 .basket-wrapper:hover {
-    color: rgba(103, 125, 199, 0.78);
+    color: #dbf075;
 }
+
+.content-container {
+    max-width: 1300px;
+    margin: -39px auto;
+    background-color: #f1f1f1;
+    padding-top: 15px;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card-wrapper {
+    background-color: #f0f0f0;
+}
+
+.products-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-family: 'Raleway', sans-serif;
+}
+
+
 
 .content-container {
     max-width: 1300px;
@@ -68,6 +154,7 @@ header-description__text {
     justify-content: space-around;
     flex-wrap: wrap;
 }
+
 
 .card-products-1 {
     margin-top: 20px;
@@ -120,7 +207,27 @@ header-description__text {
     width: 260px;
     border: 1px solid rgba(119, 118, 118, 0.5);
     border-radius: 5px;
+
+    cursor: pointer;
+    transition: 0.5s linear;
 }
+
+.card-wrapper:hover {
+    color: #131313;
+    background-color: #81d3d6;
+    width: 280px;
+    height: 460px;
+}
+
+.card-wrapper:hover .button-wrapper {
+    padding-top: 30px;
+}
+
+.card-wrapper:hover .card-wrapper__body {
+    padding-top: 30px;
+
+}
+
 .custom-image {
     width: 60%;
     height: 150px;
@@ -131,16 +238,45 @@ header-description__text {
     justify-content: center;
     margin-top: 15px;
     margin-bottom: 15px;
+
 }
 .card-wrapper__body {
     padding-left: 10px;
 }
 .card-body__title {
     font-size: 35px;
+
 }
+
+.card-wrapper__body {
+    padding-top: 2px;
+    padding-left: 10px;
+    transition: 0.5s linear;
+}
+
+.card-body__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    letter-spacing: 0.1em;
+}
+
+.card-body__description {
+    padding-top: 12px;
+}
+
 .button-wrapper {
+
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s linear;
+
     padding-left: 15px;
     margin-top: 30px;
+
 }
 
 .modal-basket {
@@ -158,4 +294,21 @@ header-description__text {
 .card-img-top {
     width: 150px;
     height: 200px;
+
 }
+
+.bottom-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-info__text {
+    padding-top: 10px;
+    color: #e3e3e3;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+}
+
+}
+
