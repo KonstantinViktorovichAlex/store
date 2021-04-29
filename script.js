@@ -1,51 +1,63 @@
+setTimeout(function(){
+    document.body.classList.add('body_visible');
+}, 50);
+
 const products = [
     {
         id: 0,
         name: 'Ньюбики',
-        description: 'Чёткие кроссы, долго служат, дизайн чёткий.',
-        image: './img/card-1.jpg'
+        price: 2500,
+        description: 'Чёткие кроссы, долго служат, дизайн чёткий',
+        image: './img/card-1.jpg',
     },
     {
         id: 1,
         name: 'Асиксы',
-        description: 'Чёткие кроссы, учитель физкультуры одобряет.',
-        image: './img/card-2.jpg'
+        price: 3500,
+        description: 'Чёткие кроссы, учитель физкультуры одобряет',
+        image: './img/card-2.jpg',
     },
     {
         id: 2,
         name: 'Кактус джек',
-        description: 'Изобретение тревис скотта. Кроссы чёткие.',
-        image: './img/card-3.png'
+        price: 7500,
+        description: 'Изобретение тревис скотта, кроссы чёткие',
+        image: './img/card-3.jpg',
     },
     {
         id: 3,
         name: 'Найки',
-        description: 'Кислотный цвет. Дизайн не очень, но для бега топчик.',
-        image: './img/card-4.jpg'
+        price: 1500,
+        description: 'Кислотный цвет, дизайн не очень, но для бега топчик',
+        image: './img/card-4.jpg',
     },
     {
         id: 4,
         name: 'Фила',
-        description: 'Старый бренд, уже не в моде.',
-        image: './img/card-5.png'
+        price: 2500,
+        description: 'Старый бренд, уже не в моде',
+        image: './img/card-5.jpg',
     },
     {
         id: 5,
         name: 'Адидас',
-        description: 'Чёткие кроссы, дизайн не очень, но чёткие.',
-        image: './img/card-6.jpg'
+        price: 2400,
+        description: 'Чёткие кроссы, дизайн не очень, но чёткие',
+        image: './img/card-6.jpg',
     },
     {
         id: 6,
         name: 'Асиксы',
+        price: 2100,
         description: 'Отличный вариант для бега и спорта.',
         image: './img/card-7.jpg'
     },
     {
         id: 7,
         name: 'Асиксы',
+        price: 9999,
         description: 'Кислотный цвет. Дизайн топчик, для бега топчик.',
-        image: './img/card-8.jpg'
+        image: './img/card-8.jpg',
     },
 ]
 const productsInBasket = []
@@ -53,11 +65,11 @@ const productsInBasket = []
 const productsWrapper = document.querySelector('.products-wrapper')
 
 const basketCount = document.querySelector('.basket-count')
-const modal_basket = document.querySelector('.modal-basket')
+const modal_basket = document.querySelector('.modal-basket-not-bootstrap')
 const btn_open_modal = document.querySelector('.modal-open')
-const btn_close_modal = document.querySelector('.btn-close')
-const buy_products = document.querySelector('.buy-products')
-const user_products = document.querySelector('.user-products')
+const btn_close_modal = document.querySelector('.btn-close__not-bootstrap')
+const user_products = document.querySelector('.user-products__not-bootstrap')
+const total_price = document.querySelector('.modal-price')
 
 const init = () => {
     let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
@@ -68,7 +80,6 @@ const init = () => {
         })
     }
 }
-
 
 btn_open_modal.addEventListener('click', (event) => {
     if (event.target.innerText === "Корзина") {
@@ -82,48 +93,44 @@ btn_close_modal.addEventListener('click', (event) => {
     user_products.innerHTML = ''
 }) // Закрываем модалку.
 
-buy_products.addEventListener('click', (event) => {
-    buyProducts()
-}) // Покупаем товар.
-
 function openModal() {
-    modal_basket.style.display = "block"
+    modal_basket.style.display = "flex"
 } // Функция призыва модалки.
 
 function closeModal() {
     modal_basket.style.display = "none"
 
 } // Функция отзыва модалки.
-
-function buyProducts() {
-    modal_basket.style.display = "none"
-    alert('Теперь ваши деньги у нас!')
-} // Покупаем товар.
-
 const createProducts = () => {
     products.forEach((product, idx) => {
         const cardProduct = document.createElement('div')
-        cardProduct.classList.add('col')
         cardProduct.innerHTML = `
-                <div class="card card-wrapper" id="${idx}" style="width: 18rem;">
-                    <img src="${product.image}" class="card-img-top custom-image" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title text-danger">${product.name}</h5>
-                        <p class="card-text"><strong>${product.description}</strong></p>
+                <div class="card-wrapper" id="${idx}">
+                    <div class="card-wrapper__image">
+                        <img src="${product.image}" class="custom-image" alt="...">
+                    </div>
+                    <div class="card-wrapper__body">
+                        <h5 class="card-body__title"><strong>${product.name}</strong></h5>
+                        <p class="card-body__description"><strong>${product.description}</strong></p>
+                        <p class="card-body__price"><strong>Стоимость: ${product.price}</strong></p>
                     </div>
                     <div class="button-wrapper">
-                        <button type="button" class="btn btn-outline-primary ml-2">В корзину!</button>
+                        <span class="hvr-pulse">
+                        <button type="button" class="btn btn-outline-primary buy-button ml-2 button-in-basket__not-bootstrap">В корзину!</button>
+                        </span>
                     </div>
                 </div>
             `
         productsWrapper.appendChild(cardProduct)
     })
 }
+
 const addBasket = () => {
     const cardsWrapper = document.querySelectorAll('.card-wrapper')
     cardsWrapper.forEach((item) => {
         item.addEventListener('click', (event) => {
             if (event.target.innerText === 'В корзину!') {
+
                 const id = Number(this.event.path[2].getAttribute('id'))
 
                 const productToBasket = products.find(product => product.id === id)
@@ -134,15 +141,30 @@ const addBasket = () => {
 
                 let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
 
+                sum_price()
+
                 basketCount.innerHTML = `${storageProductInBasket.length}`
+
+                alert('Товар добавлен в корзину!')
+
             }
         })
     })
 }
+
+const sum_price = () => {
+    let total_cost = 0
+    productsInBasket.forEach((product) => {
+        total_cost += product.price
+    })
+    total_price.innerHTML = total_cost
+}
+
 const showBasketProducts = () => {
     let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
     if (storageProductInBasket.length) {
         storageProductInBasket.forEach((product, idx) => {
+
             const cardProductBasket = document.createElement('div')
             cardProductBasket.setAttribute('id', idx)
             cardProductBasket.classList.add('cardProductBasket')
@@ -154,7 +176,7 @@ const showBasketProducts = () => {
                 <p>
                     ${product.description}
                 </p>
-                <button class="btn btn-sm btn-danger deleteProduct">Удалить</button>
+                <button class="deleteProduct delete-product-on-basket__not-bootstrap">Удалить</button>
                 <hr>
             `
             user_products.append(cardProductBasket)
@@ -162,6 +184,7 @@ const showBasketProducts = () => {
         deleteProduct()
     }
 }
+
 const deleteProduct = () => {
     let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
     const cardProductBasket = document.querySelectorAll('.cardProductBasket')
@@ -177,14 +200,25 @@ const deleteProduct = () => {
                 storageProductInBasket.splice(findElemLocal, 1)
 
                 localStorage.setItem('productsInBasket', JSON.stringify(storageProductInBasket))
+
+                sum_price()
+
                 item.remove()
                 basketCount.innerHTML = `${storageProductInBasket.length}`
             }
         })
     })
 }
+const closeBasketWrapper = () => {
+    const wrapperModalBasket = document.querySelector('.modal-basket-not-bootstrap')
+    wrapperModalBasket.addEventListener('click', (event) => {
+        if(event.target.className === 'modal-basket-not-bootstrap') {
+            closeModal()
+        }
+    })
+}
+
 init()
 createProducts()
 addBasket()
-
-
+closeBasketWrapper()
