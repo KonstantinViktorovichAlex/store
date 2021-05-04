@@ -115,7 +115,7 @@ const createProducts = () => {
                         <p class="card-body__price"><strong>Стоимость: ${product.price}</strong></p>
                     </div>
                     <div class="button-wrapper">
-                        <button type="button" class="btn btn-outline-primary buy-button ml-2">В корзину!</button>
+                        <button type="button" class="btn btn-outline-primary buy-button ml-2 button-in-basket__not-bootstrap">В корзину!</button>
                     </div>
                 </div>
             `
@@ -168,14 +168,14 @@ const showBasketProducts = () => {
             cardProductBasket.setAttribute('id', idx)
             cardProductBasket.classList.add('cardProductBasket')
             cardProductBasket.innerHTML = `
-                <h5>
+                <h5 class = "product-title-in-basket">
                     ${product.name}
                 </h5>
                 <img src="${product.image}" class="basket-image" alt="">
-                <p>
+                <p class = "product-description-in-basket">
                     ${product.description}
                 </p>
-                <button class="btn btn-sm btn-danger deleteProduct">Удалить</button>
+                <button class="btn btn-sm btn-danger deleteProduct delete-product-on-basket__not-bootstrap">Удалить</button>
                 <hr>
             `
             user_products.append(cardProductBasket)
