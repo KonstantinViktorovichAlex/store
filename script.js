@@ -1,4 +1,9 @@
-setTimeout(function(){
+document.addEventListener('DOMContentLoaded', () => {
+    createProducts()
+})
+
+
+setTimeout(function () {
     document.body.classList.add('body_visible');
 }, 50);
 
@@ -73,12 +78,13 @@ const total_price = document.querySelector('.modal-price')
 
 const init = () => {
     let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
-    if(storageProductInBasket !== null && storageProductInBasket.length > 0) {
+    if (storageProductInBasket !== null && storageProductInBasket.length > 0) {
         basketCount.innerHTML = storageProductInBasket.length
         storageProductInBasket.forEach((item) => {
             productsInBasket.push(item)
         })
     }
+
 }
 
 btn_open_modal.addEventListener('click', (event) => {
@@ -101,8 +107,13 @@ function closeModal() {
     modal_basket.style.display = "none"
 
 } // Функция отзыва модалки.
-const createProducts = () => {
-    products.forEach((product, idx) => {
+const createProducts = async () => {
+
+    const result = await fetch('http://localhost:3000/cross')
+        .then(response => response.json())
+        .then(data => data)
+
+    result.forEach((product, idx) => {
         const cardProduct = document.createElement('div')
         cardProduct.innerHTML = `
                 <div class="card-wrapper" id="${idx}">
@@ -120,6 +131,7 @@ const createProducts = () => {
                 </div>
             `
         productsWrapper.appendChild(cardProduct)
+        addBasket()
     })
 }
 
@@ -135,6 +147,8 @@ const addBasket = () => {
 
                 productsInBasket.push(productToBasket)
 
+                addBasketServer(productToBasket)
+
                 localStorage.setItem('productsInBasket', JSON.stringify(productsInBasket))
 
                 let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
@@ -143,9 +157,7 @@ const addBasket = () => {
 
                 basketCount.innerHTML = `${storageProductInBasket.length}`
 
-
                 alert('Товар добавлен в корзину!')
-
             }
         })
     })
@@ -189,7 +201,7 @@ const deleteProduct = () => {
     const cardProductBasket = document.querySelectorAll('.cardProductBasket')
     cardProductBasket.forEach((item) => {
         item.addEventListener('click', (event) => {
-            if(event.target.innerText === 'Удалить') {
+            if (event.target.innerText === 'Удалить') {
 
                 let idProduct = Number(item.getAttribute('id'))
                 let findElem = productsInBasket.find((item) => item.id === idProduct)
@@ -211,13 +223,31 @@ const deleteProduct = () => {
 const closeBasketWrapper = () => {
     const wrapperModalBasket = document.querySelector('.modal-basket-not-bootstrap')
     wrapperModalBasket.addEventListener('click', (event) => {
-        if(event.target.className === 'modal-basket-not-bootstrap') {
+        if (event.target.className === 'modal-basket-not-bootstrap') {
             closeModal()
         }
     })
 }
 
+const addBasketServer = async(product) => {
+    let data = {
+        description: product.description,
+        image: product.image,
+        name: product.name,
+        price: product.price
+    }
+
+    let jsonData = JSON.stringify(data)
+
+    await fetch('http://localhost:3000/basket', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: jsonData
+    })
+}
 init()
-createProducts()
-addBasket()
+//createProducts()
+//addBasket()
 closeBasketWrapper()
