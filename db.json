@@ -1,0 +1,13 @@
+{
+  "cross": [
+    {
+      "id": 0,
+      "name": "Ньюбики",
+      "title": "my new cross",
+      "description": "Чёткие кроссы, долго служат, дизайн чёткий",
+      "price": 2500,
+      "image": "./img/card-1.jpg"
+    }
+  ],
+  "basket": []
+}
