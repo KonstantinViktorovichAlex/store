@@ -54,14 +54,14 @@ const products = [
         id: 6,
         name: 'Асиксы',
         price: 2100,
-        description: 'Отличный вариант для бега и спорта.',
+        description: 'Отличный вариант для бега и спорта',
         image: './img/card-7.jpg'
     },
     {
         id: 7,
         name: 'Асиксы',
         price: 9999,
-        description: 'Кислотный цвет. Дизайн топчик, для бега топчик.',
+        description: 'Кислотный цвет. Дизайн топчик, для бега топчик',
         image: './img/card-8.jpg',
     },
 ]
