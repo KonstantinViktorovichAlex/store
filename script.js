@@ -54,14 +54,14 @@ const products = [
         id: 6,
         name: 'Асиксы',
         price: 2100,
-        description: 'Отличный вариант для бега и спорта',
+        description: 'Отличный вариант для бега и спорта.',
         image: './img/card-7.jpg'
     },
     {
         id: 7,
         name: 'Асиксы',
         price: 9999,
-        description: 'Кислотный цвет. Дизайн топчик, для бега топчик',
+        description: 'Кислотный цвет. Дизайн топчик, для бега топчик.',
         image: './img/card-8.jpg',
     },
 ]
@@ -203,6 +203,8 @@ const deleteProduct = () => {
         item.addEventListener('click', (event) => {
             if (event.target.innerText === 'Удалить') {
 
+                delete_basket_server()
+
                 let idProduct = Number(item.getAttribute('id'))
                 let findElem = productsInBasket.find((item) => item.id === idProduct)
                 let findElemLocal = storageProductInBasket.find((item) => item.id === idProduct)
@@ -247,6 +249,24 @@ const addBasketServer = async(product) => {
         body: jsonData
     })
 }
+
+const delete_basket_server = async (product) => {
+    let data = {
+        id: product.id,
+    }
+
+    let good_data = JSON.stringify(data)
+    let delete_product
+        delete_product = await fetch('http://localhost:3000/basket', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: good_data
+        })
+    console.log(delete_product)
+}
+
 init()
 //createProducts()
 //addBasket()
