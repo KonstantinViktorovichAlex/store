@@ -3,10 +3,66 @@
     {
       "id": 0,
       "name": "Ньюбики",
-      "title": "my new cross",
+      "title": "cross",
       "description": "Чёткие кроссы, долго служат, дизайн чёткий",
       "price": 2500,
       "image": "./img/card-1.jpg"
+    },
+    {
+      "id": 1,
+      "name": "Асиксы",
+      "title": "cross",
+      "description": "Чёткие кроссы, учитель физкультуры одобряет",
+      "price": 3500,
+      "image": "./img/card-2.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Кактус джек",
+      "title": "cross",
+      "description": "Изобретение тревис скотта, кроссы чёткие",
+      "price": 7500,
+      "image": "./img/card-3.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Найки",
+      "title": "cross",
+      "description": "Кислотный цвет, дизайн не очень, но для бега топчик",
+      "price": 1500,
+      "image": "./img/card-4.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Фила",
+      "title": "cross",
+      "description": "Старый бренд, уже не в моде",
+      "price": 2500,
+      "image": "./img/card-5.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Адидас",
+      "title": "cross",
+      "description": "Чёткие кроссы, дизайн не очень, но чёткие",
+      "price": 2400,
+      "image": "./img/card-6.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Асиксы",
+      "title": "cross",
+      "description": "Отличный вариант для бега и спорта",
+      "price": 2100,
+      "image": "./img/card-7.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Асиксы",
+      "title": "cross",
+      "description": "Кислотный цвет. Дизайн топчик, для бега топчик",
+      "price": 9999,
+      "image": "./img/card-8.jpg"
     }
   ],
   "basket": []
