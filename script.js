@@ -2,69 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     createProducts()
 })
 
-
 setTimeout(function () {
     document.body.classList.add('body_visible');
-}, 50);
+}, 50)
 
-const products = [
-    {
-        id: 0,
-        name: 'Ньюбики',
-        price: 2500,
-        description: 'Чёткие кроссы, долго служат, дизайн чёткий',
-        image: './img/card-1.jpg',
-    },
-    {
-        id: 1,
-        name: 'Асиксы',
-        price: 3500,
-        description: 'Чёткие кроссы, учитель физкультуры одобряет',
-        image: './img/card-2.jpg',
-    },
-    {
-        id: 2,
-        name: 'Кактус джек',
-        price: 7500,
-        description: 'Изобретение тревис скотта, кроссы чёткие',
-        image: './img/card-3.jpg',
-    },
-    {
-        id: 3,
-        name: 'Найки',
-        price: 1500,
-        description: 'Кислотный цвет, дизайн не очень, но для бега топчик',
-        image: './img/card-4.jpg',
-    },
-    {
-        id: 4,
-        name: 'Фила',
-        price: 2500,
-        description: 'Старый бренд, уже не в моде',
-        image: './img/card-5.jpg',
-    },
-    {
-        id: 5,
-        name: 'Адидас',
-        price: 2400,
-        description: 'Чёткие кроссы, дизайн не очень, но чёткие',
-        image: './img/card-6.jpg',
-    },
-    {
-        id: 6,
-        name: 'Асиксы',
-        price: 2100,
-        description: 'Отличный вариант для бега и спорта.',
-        image: './img/card-7.jpg'
-    },
-    {
-        id: 7,
-        name: 'Асиксы',
-        price: 9999,
-        description: 'Кислотный цвет. Дизайн топчик, для бега топчик.',
-        image: './img/card-8.jpg',
-    },
-]
 const productsInBasket = []
 
 const productsWrapper = document.querySelector('.products-wrapper')
@@ -76,6 +17,7 @@ const btn_close_modal = document.querySelector('.btn-close__not-bootstrap')
 const user_products = document.querySelector('.user-products__not-bootstrap')
 const total_price = document.querySelector('.modal-price')
 
+
 const init = () => {
     let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
     if (storageProductInBasket !== null && storageProductInBasket.length > 0) {
@@ -84,7 +26,6 @@ const init = () => {
             productsInBasket.push(item)
         })
     }
-
 }
 
 btn_open_modal.addEventListener('click', (event) => {
@@ -126,102 +67,120 @@ const createProducts = async () => {
                         <p class="card-body__price"><strong>Стоимость: ${product.price}</strong></p>
                     </div>
                     <div class="button-wrapper">
-                        <button type="button" class="btn btn-outline-primary buy-button ml-2 button-in-basket__not-bootstrap">В корзину!</button>
+                        <button 
+                            type="button" 
+                            class="btn btn-outline-primary buy-button ml-2 button-in-basket__not-bootstrap">В корзину!</button>
                     </div>
                 </div>
             `
         productsWrapper.appendChild(cardProduct)
-        addBasket()
     })
+
+    addBasket()
+}
+
+const getProduct = async (id) => {
+    const result = await fetch(`http://localhost:3000/cross/${id}`)
+        .then(response => response.json())
+        .then(data => data)
+    return result
+}
+
+const getProductsInBasket = async () => {
+    const result = await fetch(`http://localhost:3000/basket`)
+        .then(response => response.json())
+        .then(data => data)
+    return result
+}
+
+const deleteProductInBasket = async (id) => {
+     const result = await fetch(`http://localhost:3000/basket/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+
+    })
+
+    return result
 }
 
 const addBasket = () => {
     const cardsWrapper = document.querySelectorAll('.card-wrapper')
+
     cardsWrapper.forEach((item) => {
         item.addEventListener('click', (event) => {
             if (event.target.innerText === 'В корзину!') {
 
                 const id = Number(this.event.path[2].getAttribute('id'))
 
-                const productToBasket = products.find(product => product.id === id)
-
-                productsInBasket.push(productToBasket)
-
-                addBasketServer(productToBasket)
-
-                localStorage.setItem('productsInBasket', JSON.stringify(productsInBasket))
-
-                let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
-
-                sum_price()
-
-                basketCount.innerHTML = `${storageProductInBasket.length}`
-
-                alert('Товар добавлен в корзину!')
+                getProduct(id)
+                    .then(product => {
+                        addBasketServer(product)
+                    })
             }
         })
     })
 }
 
-const sum_price = () => {
-    let total_cost = 0
-    productsInBasket.forEach((product) => {
-        total_cost += product.price
-    })
-    total_price.innerHTML = total_cost
-}
 
 const showBasketProducts = () => {
-    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
-    if (storageProductInBasket.length) {
-        storageProductInBasket.forEach((product, idx) => {
-
-            const cardProductBasket = document.createElement('div')
-            cardProductBasket.setAttribute('id', idx)
-            cardProductBasket.classList.add('cardProductBasket')
-            cardProductBasket.innerHTML = `
-                <h5 class = "product-title-in-basket">
-                    ${product.name}
-                </h5>
-                <img src="${product.image}" class="basket-image" alt="">
-                <p class = "product-description-in-basket">
-                    ${product.description}
-                </p>
-                <button class="btn btn-sm btn-danger deleteProduct delete-product-on-basket__not-bootstrap">Удалить</button>
-                <hr>
-            `
-            user_products.append(cardProductBasket)
+    let total_cost = 0
+    getProductsInBasket()
+        .then((products) => {
+            if (products.length) {
+                products.forEach((product) => {
+                    const cardProductBasket = document.createElement('div')
+                    cardProductBasket.setAttribute('id', product.id)
+                    cardProductBasket.classList.add('cardProductBasket')
+                    cardProductBasket.innerHTML = `
+                        <h5 class = "product-title-in-basket">
+                            ${product.name}
+                        </h5>
+                        <img src="${product.image}" class="basket-image" alt="">
+                        <p class = "product-description-in-basket">
+                            ${product.description}
+                        </p>
+                        <button class="btn btn-sm btn-danger deleteProduct delete-product-on-basket__not-bootstrap">Удалить</button>
+                        <hr>
+                    `
+                    user_products.append(cardProductBasket)
+                    total_cost += product.price
+                    total_price.innerHTML = total_cost
+                })
+                deleteProduct()
+            }
         })
-        deleteProduct()
-    }
+
 }
 
 const deleteProduct = () => {
-    let storageProductInBasket = JSON.parse(localStorage.getItem('productsInBasket'))
     const cardProductBasket = document.querySelectorAll('.cardProductBasket')
+
     cardProductBasket.forEach((item) => {
+
         item.addEventListener('click', (event) => {
-            if (event.target.innerText === 'Удалить') {
 
-                delete_basket_server()
+            if(event.target.innerText === 'Удалить') {
 
-                let idProduct = Number(item.getAttribute('id'))
-                let findElem = productsInBasket.find((item) => item.id === idProduct)
-                let findElemLocal = storageProductInBasket.find((item) => item.id === idProduct)
+                const id = Number(this.event.path[1].getAttribute('id'))
 
-                productsInBasket.splice(findElem, 1)
-                storageProductInBasket.splice(findElemLocal, 1)
+                deleteProductInBasket(id).then(response => {
+                    if(response.status === 200) {
+                        item.remove()
+                    }else {
+                        alert('SERVER ERROR')
+                        return
+                    }
+                })
 
-                localStorage.setItem('productsInBasket', JSON.stringify(storageProductInBasket))
-
-                sum_price()
-
-                item.remove()
-                basketCount.innerHTML = `${storageProductInBasket.length}`
             }
         })
     })
+
 }
+
+
 const closeBasketWrapper = () => {
     const wrapperModalBasket = document.querySelector('.modal-basket-not-bootstrap')
     wrapperModalBasket.addEventListener('click', (event) => {
@@ -231,7 +190,7 @@ const closeBasketWrapper = () => {
     })
 }
 
-const addBasketServer = async(product) => {
+const addBasketServer = async (product) => {
     let data = {
         description: product.description,
         image: product.image,
@@ -241,33 +200,18 @@ const addBasketServer = async(product) => {
 
     let jsonData = JSON.stringify(data)
 
-    await fetch('http://localhost:3000/basket', {
+    const result = await fetch('http://localhost:3000/basket', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: jsonData
+    }).then(response => {
+        if (response.statusText === 'Created') {
+            alert('Товар был добавлен в корзину')
+        }
     })
 }
 
-const delete_basket_server = async (product) => {
-    let data = {
-        id: product.id,
-    }
-
-    let good_data = JSON.stringify(data)
-    let delete_product
-        delete_product = await fetch('http://localhost:3000/basket', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: good_data
-        })
-    console.log(delete_product)
-}
-
 init()
-//createProducts()
-//addBasket()
 closeBasketWrapper()
