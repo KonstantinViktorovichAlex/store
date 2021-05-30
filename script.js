@@ -9,13 +9,14 @@ setTimeout(function () {
 const productsInBasket = []
 
 const productsWrapper = document.querySelector('.products-wrapper')
-
+const basket_status = document.querySelector('.basket-status')
 const basketCount = document.querySelector('.basket-count')
 const modal_basket = document.querySelector('.modal-basket-not-bootstrap')
 const btn_open_modal = document.querySelector('.modal-open')
 const btn_close_modal = document.querySelector('.btn-close__not-bootstrap')
 const user_products = document.querySelector('.user-products__not-bootstrap')
 const total_price = document.querySelector('.modal-price')
+const buy_button = document.querySelector('.buy-button__not-bootstrap')
 
 
 const init = () => {
@@ -94,14 +95,23 @@ const getProductsInBasket = async () => {
 }
 
 const deleteProductInBasket = async (id) => {
-     const result = await fetch(`http://localhost:3000/basket/${id}`, {
+    const result = await fetch(`http://localhost:3000/basket/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         },
 
     })
+    return result
+}
 
+const buy_products_in_server = async () => {
+    const result = await fetch(`http://localhost:3000/basket`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+    })
     return result
 }
 
@@ -118,17 +128,21 @@ const addBasket = () => {
                     .then(product => {
                         addBasketServer(product)
                     })
+                getProductsInBasket()
+                    .then(products => {
+                        basketCount.innerHTML = products.length + 1
+                    })
             }
         })
     })
 }
 
-
-const showBasketProducts = () => {
+const showBasketProducts = async () => {
     let total_cost = 0
     getProductsInBasket()
         .then((products) => {
             if (products.length) {
+                basket_status.innerText = 'Ваш выбор: '
                 products.forEach((product) => {
                     const cardProductBasket = document.createElement('div')
                     cardProductBasket.setAttribute('id', product.id)
@@ -149,12 +163,15 @@ const showBasketProducts = () => {
                     total_price.innerHTML = total_cost
                 })
                 deleteProduct()
+            } else {
+                basket_status.innerText = 'Корзина пуста.'
             }
         })
-
+    buy_products()
 }
 
 const deleteProduct = () => {
+    let total_cost
     const cardProductBasket = document.querySelectorAll('.cardProductBasket')
 
     cardProductBasket.forEach((item) => {
@@ -174,12 +191,22 @@ const deleteProduct = () => {
                     }
                 })
 
+                getProductsInBasket()
+                    .then(products => {
+
+                        if (products.length) {
+                            basketCount.innerHTML = products.length - 1
+                            products.forEach((product) => {
+
+                            })
+                        }
+                    })
+
             }
         })
     })
 
 }
-
 
 const closeBasketWrapper = () => {
     const wrapperModalBasket = document.querySelector('.modal-basket-not-bootstrap')
@@ -210,6 +237,21 @@ const addBasketServer = async (product) => {
         if (response.statusText === 'Created') {
             alert('Товар был добавлен в корзину')
         }
+    })
+}
+
+const buy_products = async () => {
+    buy_button.addEventListener('click', (event) => {
+        buy_products_in_server()
+            .then(response => {
+                if (response.status === 200 && response.length && event) {
+                    response.splice(0, response.length) // delete response, либо в then получать products ?????
+                    console.log(response)
+                } else {
+                    alert('SERVER ERROR PZDC CROSSOVKI NE KUPITb')
+                    return
+                }
+            })
     })
 }
 
